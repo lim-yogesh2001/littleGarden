@@ -10,4 +10,7 @@ class Orders(models.Model):
     
     def __str__(self):
         return f"order {self.id}"
+    
+    class Meta:
+        verbose_name_plural = "Orders"
 
