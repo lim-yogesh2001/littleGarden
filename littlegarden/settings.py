@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'products_category',
     'order',
     'transection',
-    'rest_framework'
+    'rest_framework',
+    'knox',
+    'django_rest_passwordreset'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'knox.auth.TokenAuthentication',
+    ),
+}
