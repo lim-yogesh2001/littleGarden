@@ -17,8 +17,9 @@ class Categories(models.Model):
 
 class Product(models.Model):
     product_name = models.CharField(max_length=100)
-    product_image = models.ImageField(upload_to='images')
+    product_image = models.ImageField(upload_to="images")
     description = models.TextField()
+    price = models.IntegerField(default=0)
     is_recently_added = models.BooleanField(default=False)
     is_popular = models.BooleanField(default=False)
     category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)

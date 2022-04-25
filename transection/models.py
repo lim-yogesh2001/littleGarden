@@ -17,7 +17,6 @@ class Transection(models.Model):
     order_id = models.ForeignKey(Orders, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     payment_id = models.ForeignKey(Payment, on_delete=models.CASCADE)
-    amount = models.IntegerField(default=0)
 
     def __str__(self):
         return f"transection {self.id}"

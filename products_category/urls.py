@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path("categories/", views.CategoryView.as_view(), name="category-list"),
     path("categories/products/<int:category_id>/", views.CategoryProductView.as_view(), name="category-products"),
-    path("products/", views.ProductsView.as_view(), name="products-list"),
+    path("products/", views.ProductsView.as_view(), name="products-list"), # products that are is not popular and is not recently added 
     path("products/recently/", views.RecentlyAddedProducts.as_view(), name="recently-products"),
     path("products/popular/", views.PopularProducts.as_view(), name="popular-products"),
     path("products/<int:id>/", views.ProductDetail.as_view(), name="product-detail"),
