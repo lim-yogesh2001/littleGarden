@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'transection',
     'rest_framework',
     'knox',
-    'django_rest_passwordreset'
+    'django_rest_passwordreset',
+    'cms'
 ]
 
 MIDDLEWARE = [
