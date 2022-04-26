@@ -9,6 +9,7 @@ class Orders(models.Model):
     quantity = models.IntegerField(default=0)
     status = models.BooleanField(default= False)
     total_amount = models.IntegerField(default=0),
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         return f"order {self.id}"
