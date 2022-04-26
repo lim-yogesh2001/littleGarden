@@ -21,15 +21,17 @@ class UserOrdersView(APIView):
 
 class OrdersView(APIView):
 
-    def get(self, request):
+    def get(self, request, user_id):
         try:
-            orders = Orders.objects.all()
+            user = User.objects.get(id=user_id)
+            orders = Orders.objects.filter(user_id=user_id)
             serializer = OrderSerailizer(orders, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return Response("Not Found", status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request):
+    def post(self, request, user_id):
+        user = User.objects.get(id=user_id)
         serializer = OrderSerailizer(data=request.data)
         if serializer.is_valid():
             serializer.save()

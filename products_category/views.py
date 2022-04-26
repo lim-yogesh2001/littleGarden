@@ -78,21 +78,12 @@ class ProductReviews(APIView):
             reviews = ProductReview.objects.filter(product_id=product)
             serializer = ProductReviewSerializer(reviews, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        except ProductReview.DoesNotExist:
-            return Response({"Product Reviews Not Found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-class ProductALLReview(APIView):
-    def get(self, request):
+        except ProductReview.DoesNotExist():
+            return Response({"Error":"Product Reviews Not Found"}, status=status.HTTP_404_NOT_FOUND)
+        
+    def post(self, request, product_id):
         try:
-            reviews = ProductReview.objects.all()
-            serializer = ProductReviewSerializer(reviews, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except ProductReview.DoesNotExist:
-            return Response({"Product Reviews Not Found"}, status=status.HTTP_404_NOT_FOUND)
-    
-    def post(self, request):
-        try:
+            product = Product.objects.get(id=product_id)
             serializer = ProductReviewSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -100,6 +91,9 @@ class ProductALLReview(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response("Something Went Wrong!!!!!")
+
+
+
         
 class ProductReviewDetail(APIView):
     def get(self, request, id):
