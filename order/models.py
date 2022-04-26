@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from products_category.models import Product
 
 # Create your models here.
 class Orders(models.Model):
@@ -7,6 +8,7 @@ class Orders(models.Model):
     date = models.DateField()
     quantity = models.IntegerField(default=0)
     status = models.BooleanField(default= False)
+    total_amount = models.IntegerField(default=0),
     
     def __str__(self):
         return f"order {self.id}"
