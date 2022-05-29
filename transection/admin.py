@@ -5,7 +5,7 @@ class PaymentAdmin(admin.ModelAdmin):
     list_display = ('id', 'payment_type')
 
 class TransectionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id', 'product_id', 'payment_id', 'status',)
+    list_display = ('id', 'order_id', 'transaxtion_id',)
 
 # Register your models here.
 admin.site.register(Payment, PaymentAdmin)

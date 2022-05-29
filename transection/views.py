@@ -23,10 +23,12 @@ class TransectionView(APIView):
         try:
             transections = Transection.objects.all()
             serializer = TransectionSerializer(transections, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(
+                serializer.data
+            , status=status.HTTP_200_OK)
         except Transection.DoesNotExist:
             return Response("Not Found", status=status.HTTP_404_NOT_FOUND)
-        
+
     def post(self, request):
         serializer = TransectionSerializer(data=request.data)
         if serializer.is_valid():
@@ -34,17 +36,6 @@ class TransectionView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
-class UserTransectionView(APIView):
-    def get(self, request, user_id):
-        try:
-            user = User.objects.get(id=user_id)
-            transections = Transection.objects.filter(user_id=user)
-            serializer = TransectionSerializer(transections, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except User.DoesNotExist:
-            return Response({"Not Found"}, status=status.HTTP_404_NOT_FOUND)
-            
 
 class TransectionDetailView(APIView):
     def get(self, request, id):
@@ -62,6 +53,3 @@ class TransectionDetailView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
