@@ -2,13 +2,14 @@ from django.db import models
 from users.models import User
 from products_category.models import Product
 from datetime import timedelta, datetime
+from transection.models import Payment
 
 
     
 # Create your models here.
 class Orders(models.Model):
     ship_time = datetime.now() + timedelta(hours=3)
-
+    payment_id = models.ForeignKey(Payment, on_delete = models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     quantity = models.IntegerField(default=0)
