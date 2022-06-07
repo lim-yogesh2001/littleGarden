@@ -13,5 +13,7 @@ class User(AbstractUser):
 
     address = models.CharField(max_length=100)
     full_name = models.CharField(max_length=100, null=True, default="")
+    phone_num = models.CharField(max_length=10)
+    profile_image = models.ImageField(upload_to='images/profile_image', blank=True)
 
 

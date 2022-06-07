@@ -6,6 +6,7 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
+from .serializer import UserSerializer
 from knox.auth import AuthToken
 from django_rest_passwordreset.signals import reset_password_token_created
 from django.dispatch import receiver
@@ -89,3 +90,20 @@ def password_reset_token(sender, instance, reset_password_token, *args, **kwargs
         'boss@gmail.com',
         [reset_password_token.user.email]
     )
+
+@api_view(['GET', 'PUT'])
+@permission_classes([permissions.IsAuthenticated])
+def profile_view(request, id):
+    if request.method == 'GET':
+        profile = User.objects.get(id=id)
+        serializer = UserSerializer(profile, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'PUT':
+        profile = User.objects.get(id=id)
+        serializer = UserSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            send_notification()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
