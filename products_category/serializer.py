@@ -16,3 +16,8 @@ class ProductReviewSerializer(serializers.ModelSerializer):
         model = ProductReview
         fields = ('id', 'ratings', 'comment', 'user_id',)
         depth = 1
+
+class ProductWriteReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductReview
+        fields = ('id', 'ratings', 'comment', 'product_id', 'user_id',)
