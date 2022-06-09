@@ -103,7 +103,6 @@ def profile_view(request, id):
         serializer = UserSerializer(profile, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            send_notification()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
